@@ -1,4 +1,4 @@
-# ![#c5f015](https://placehold.it/15/c5f015/000000?text=+DENA (Deeplearning Explore Nanopore m6A)
+#  DENA (Deeplearning Explore Nanopore m6A)
  
 One Paragraph of project description goes here
  
