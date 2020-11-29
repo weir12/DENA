@@ -1,0 +1,9 @@
+neg_id="vir-1"
+pos_id="VIRc"
+neg_fastq="/home/weir/m6a_model/raw_data/vir-1_total.fastq"
+pos_fastq="/home/weir/m6a_model/raw_data/VIRc_total.fastq"
+threads=12
+ref="/home/weir/output/Simpson_Barton_Nanopore_1/pipeline/chimera_pipeline/Araport11_genes.201606.cdna.fasta"
+candidate_sites="/home/weir/m6a_model/repo/m6a_model/fmv_m6A_insect.txt"
+output_wd="/home/weir/m6a_model/result/"
+verbose_log=true
