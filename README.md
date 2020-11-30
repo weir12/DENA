@@ -1,5 +1,5 @@
 
-![image]( ./DENA_log.jpg =100x100)
+![image]( ./DENA_log.jpg){:height="100px" width="400px"}
 #  DENA (Deeplearning Explore Nanopore m6A)
  
 One Paragraph of project description goes here
