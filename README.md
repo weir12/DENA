@@ -1,5 +1,5 @@
 
-![image]( ./DENA_log.jpg )
+![image]( ./DENA_log.jpg =100x100)
 #  DENA (Deeplearning Explore Nanopore m6A)
  
 One Paragraph of project description goes here
