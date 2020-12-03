@@ -2,7 +2,7 @@
 # @Author: liangou
 # @Date:   2020-11-23 19:02:25
 # @Last Modified by:   liangou
-# @Last Modified time: 2020-11-23 19:41:54
+# @Last Modified time: 2020-12-03 20:21:51
 
 '''
 import modules
@@ -36,18 +36,28 @@ def my_argparse():
 	myargs=parser.parse_args()
 	return myargs
 
+def handle(site,group,q,bamdir,label):
+	bamfile = pysam.AlignmentFile(bamdir, "rb")
+	for i,r in group.iterrows():
 
 
+
+'''
+main func
+'''
 if __name__ =='__main__':
 	stime = time.time()
 	myargs=my_argparse() 
 	if not os.path.exists(myargs.outFolder):
 		os.makedirs(myargs.outFolder)
-	candidate_sites=pd.read_csv(myargs.sites_file,sep="\t",usecols=[1,3])
+	candidate_sites=pd.read_csv(myargs.sites_file,sep="\t")
 	pool = multiprocessing.Pool(processes = myargs.processes)
 	q = multiprocessing.Manager().Queue()
 	overall_progressbar = tqdm.tqdm(total=candidate_sites.shape[0], desc='extracting label...', position=0)
 	def callback(result):
 		overall_progressbar.update(1)
-	for tup in zip(candidate_sites['chrom'], candidate_sites['error_geno_loci']):
-		result=pool.apply_async(handle,(i,all_sites,myargs.windows,q,white_list,myargs.fast5_fn,myargs.uuid_limit,ambiguity,), callback=callback)	
+	for site,group in mysites.groupby([0,14]):
+		result=pool.apply_async(handle,(site,group,q,myargs.bam), callback=callback)	
+
+'''
+sites_file="/home/weir/output/vir_fip37_mtb/result_11_28/filter_final_result"
