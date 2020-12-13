@@ -2,10 +2,10 @@
 # @Author: liangou
 # @Date:   2020-11-26 20:12:55
 # @Last Modified by:   liangou
-# @Last Modified time: 2020-11-30 00:02:21
+# @Last Modified time: 2020-12-13 20:20:24
 
 ###
-### find_motif & calcu_closest_m6a
+### find_motif & calcu_closest_m6a & intersect sites
 ### author:
 ### liangou@ips.ac.cn
 ###
@@ -22,8 +22,8 @@ help() {
     sed -rn 's/^### ?//;T;p' "$0"
 }
 
-export PATH=$PATH:/home/weir/software/meme/bin
-m=0 # The default is not to get the intersection of m6A loci
+#export PATH=$PATH:/home/weir/software/meme/bin
+
 find_motif(){
 
 	#parse param
@@ -55,23 +55,24 @@ find_motif(){
 		Rscript ./calcu_closest_motif.R ${input} "RRACH" ${fasta} ${out_preifx} ${output}
 	done
 
-	if [ m -eq 1 ];then
-		for input in ${output}/*_FDR0.05_closet_motif.txt ;do
-			 cat ${input} |awk -F '\t' '{if($18<=5 && $18>=-5)print$1"_"$15}' | sort -u >>sites_tmp 
-		num=$( sort  sites_tmp |uniq -c |sort -nr |sed -n '1p' |awk '{print$1}' )
-		sort sites_tmp |uniq -c |sort -nr |sed -n "/^[ ]*${num}/p" |awk -F '[ _]+' '{print$3,$4}' OFS='\t'>${output}/final_overlep_sites
-		done
-		rm sites_tmp
-		cat ${output}/final_overlep_sites |while read line; do
-			transid=`echo $line |awk '{print$1}'`
-			pos=`echo $line |awk '{print$2}'`
-			cat "/home/weir/output/vir_fip37_mtb/result_11_28/At.vir_vs_VIRc_guppy4015.differr_odd1_FDR0.05_closet_motif.txt" \
-			|grep $transid |grep $pos >>final_result
-		done
-	fi
+	#The m6a sites under all conditions were intersected
+	for input in ${output}/*_FDR0.05_closet_motif.txt ;do
+		 cat ${input} |awk -F '\t' '{if($18<=5 && $18>=-5)print$1"_"$15}' | sort -u >>sites_tmp 
+	num=$( sort  sites_tmp |uniq -c |sort -nr |sed -n '1p' |awk '{print$1}' )
+	sort sites_tmp |uniq -c |sort -nr |sed -n "/^[ ]*${num}/p" |awk -F '[ _]+' '{print$3,$4}' OFS='\t'>${output}/final_overlep_sites
+	done
+	rm sites_tmp
+	cat ${output}/final_overlep_sites |while read line; do
+		transid=`echo $line |awk '{print$1}'`
+		pos=`echo $line |awk '{print$2}'`
+		cat "/home/weir/output/vir_fip37_mtb/result_11_28/At.vir_vs_VIRc_guppy4015.differr_odd1_FDR0.05_closet_motif.txt" \
+		|grep $transid |grep $pos >>final_result
+	done
+
 
 }
-while getopts "i:o:a:m" opt
+
+while getopts "i:o:a:" opt
 do
     case $opt in
         i)
@@ -80,14 +81,18 @@ do
         o=$OPTARG;;
         a)
         a=$OPTARG;;
-        m)
-		m=1
         ?)
-        echo "error"
+		echo -e "\033[31m Error Unknown parameter \033[0m"
         help
         exit 1;;
     esac
 done
+if [ $# != 3 ];then
+	echo -e "\033[31m Error num of  params \033[0m"
+	help
+	exit 1
+fi
 find_motif $i $o $a && echo "Motif research was successfully finished"
+
 #e.g bash ./find_motif.sh -i /home/shihan/qinhang/At_Nanopore_RawData/nano_guppy324/differr_guppy324.out/trans_ref/20201114-differr/fC_guppy324.differr_odd1_FDR0.01.bed \
 #-o ./result -a "/home/weir/output/Simpson_Barton_Nanopore_1/pipeline/chimera_pipeline/Araport11_genes.201606.cdna.fasta" 

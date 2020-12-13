@@ -2,7 +2,7 @@
 # @Author: liangou
 # @Date:   2020-11-23 14:55:45
 # @Last Modified by:   liangou
-# @Last Modified time: 2020-11-25 15:10:44
+# @Last Modified time: 2020-12-09 15:47:28
 
 #config info
 #Plz place the config file in the same directory
@@ -75,7 +75,7 @@ label(){
 	labeling_result="/home/weir/m6a_model/result/labeling_result/"
 	mkdir -p ${labeling_result}
 	CheckFolder $labeling_result
-	python labeling_reads.py --bam ${align_result}VIRc/VIRc.sort.bam --label 0 --sites candidate_sites --output %{labeling_result}
+	py ./label_reads.py --bam $1 --label $2 --sites_file $3 --outFolder $labeling_result --plain_text_output
 }
 
 
