@@ -1,0 +1,23 @@
+
+#WT generally refers to samples with a high degree of M6A
+WT: 
+  id: "VIRc"
+  fastq: "/home/weir/m6a_model/raw_data/VIRc_total.fastq"
+  fast5: "/home/weir/tair_rawdata/elife_rawdata/VIRc/"
+  sequenceing_summary: "/home/weir/m6a_model/raw_data/VIRc_sequencing_summary.txt"
+
+#KO generally refers to samples with a low degree of M6A
+KO:
+  id: "vir-1"
+  fastq: "/home/weir/m6a_model/raw_data/vir-1_total.fastq"
+  fast5: "/home/weir/tair_rawdata/elife_rawdata/vir-1/"
+  sequenceing_summary: "/home/weir/m6a_model/raw_data/vir-1_sequencing_summary.txt"
+
+threads: 64
+#the folder containing the BED files produced by the differ
+differ_res: "/home/shihan/qinhang/At_Nanopore_RawData/nano_guppy324/differr_guppy324.out/trans_ref/20201114-differr/"
+#Transcriptome fasta file
+ref: "/home/weir/output/Simpson_Barton_Nanopore_1/pipeline/chimera_pipeline/Araport11_genes.201606.cdna.fasta"
+
+output_basedir: "/home/weir/m6a_model/result/"
+

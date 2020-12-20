@@ -2,4 +2,5 @@
 *nohup*
 .nfs*
 features
-features.tar.gz
+features.tar*
+sample_records.txt
