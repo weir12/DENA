@@ -1,6 +1,7 @@
 import torch
+import torch.nn.functional as F
 from sklearn.metrics import auc
-
+from sklearn import metrics
 def accuracy(output, target):
     with torch.no_grad():
         pred = torch.argmax(output, dim=1)
@@ -19,7 +20,8 @@ def top_k_acc(output, target, k=3):
             correct += torch.sum(pred[:, i] == target).item()
     return correct / len(target)
 
-def auc(output, target):
-	output,target=output.numpy(),target.numpy()
+def AUC(output, target):
+	output=F.softmax(output,dim=1)[:,1] 
+	output,target=output.cpu().detach().numpy(),target.cpu().detach().numpy()
 	fpr, tpr, thresholds = metrics.roc_curve(target, output, pos_label=1)
 	return metrics.auc(fpr, tpr)

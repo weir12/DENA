@@ -65,3 +65,12 @@ class MetricTracker:
 
     def result(self):
         return dict(self._data.average)
+	
+def polish_signal(signal_list,padding_num=0,length=256):
+	if len(signal_list)==length:
+		return signal_list
+	elif len(signal_list) < length:
+		signal_list.extend([padding_num]*abs(len(signal_list)-length))
+		return signal_list
+	else:
+		return signal_list[int((len(signal_list)//2)-(length/2)):int((len(signal_list)//2)+(length/2))]

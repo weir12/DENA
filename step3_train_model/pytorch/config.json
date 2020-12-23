@@ -5,11 +5,11 @@
     "arch": {
         "type": "DENAModel",
         "args": {
-			"in_dim": 8, //Bi-LSTM,word embedding
-			"hidden_dim":128, //Bi-LSTM,dim of status vector
-			"n_layer":3, //num_layers of RNN
-			"n_classes":2 ,//the num_class of predicted by model
-			"drop_out": false //Whether to use drop_out in fully connected layers
+			"in_dim": 8, 
+			"hidden_dim":128, 
+			"n_layer":3, 
+			"n_classes":2 ,
+			"drop_out": false 
 			
 		}
     },
@@ -19,16 +19,16 @@
             "hdf5_dir": "/home/haopei/DENA/features",
 			"file_list": "/home/haopei/DENA/sample_records.txt",
 			"dataset": "DENA_dataset",
-            "batch_size": 64,
+            "batch_size": 256,
             "shuffle": true,
             "validation_split": 0.3,
-            "num_workers": 16
+            "num_workers": 32         
         }
     },
     "optimizer": {
         "type": "Adam",
         "args":{
-            "lr": 0.001,
+            "lr": 0.0003,
             "weight_decay": 0,
             "amsgrad": true
         }
@@ -54,6 +54,6 @@
         "monitor": "min val_loss",
         "early_stop": 3,
 
-        "tensorboard": true
+        "tensorboard": false
     }
 }

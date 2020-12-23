@@ -1,11 +1,12 @@
 import torch.nn as nn
+import torch
 import torch.nn.functional as F
 from base import BaseModel
 from .layers import Inception_ResNetv2
 
 class DENAModel(BaseModel):
-	def __init__(self, in_dim, hidden_dim, n_layer, n_classes,drop_out):
-		super(Rnn_Cnn, self).__init__()
+	def __init__(self, in_dim, hidden_dim, n_layer, n_classes,drop_out=False):
+		super(DENAModel, self).__init__()
 		self.lstm = nn.LSTM(in_dim, hidden_dim, n_layer, batch_first=True,bidirectional=True)
 		self.cnn=Inception_ResNetv2(in_channels=1, classes=2)
 		self.classifier=nn.Sequential(
