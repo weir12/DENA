@@ -6,6 +6,7 @@ import data_loader.data_loaders as module_data
 import model.loss as module_loss
 import model.metric as module_metric
 import model.model as module_arch
+import plotter.plotter as pollters
 from parse_config import ConfigParser
 from trainer import Trainer
 from utils import prepare_device
@@ -15,7 +16,8 @@ from utils import prepare_device
 SEED = 123
 torch.manual_seed(SEED)
 torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.benchmark = True
+
 np.random.seed(SEED)
 
 def main(config):
@@ -34,6 +36,7 @@ def main(config):
     # get function handles of loss and metrics
     criterion = getattr(module_loss, config['loss'])
     metrics = [getattr(module_metric, met) for met in config['metrics']]
+    plotter=[getattr(pollters, met) for met in config.plotter]
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = filter(lambda p: p.requires_grad, model.parameters())
     optimizer = config.init_obj('optimizer', torch.optim, trainable_params)
@@ -43,8 +46,8 @@ def main(config):
                       device=device,
                       data_loader=data_loader,
                       valid_data_loader=valid_data_loader,
-                      lr_scheduler=lr_scheduler)
-
+                      lr_scheduler=lr_scheduler,
+					  plotter=plotter)
     trainer.train()
 
 
@@ -56,11 +59,14 @@ if __name__ == '__main__':
                       help='path to latest checkpoint (default: None)')
     args.add_argument('-d', '--device', default=None, type=str,
                       help='indices of GPUs to enable (default: all)')
+    args.add_argument('-i','--id',default=None,type=str,
+                        help="The identifier for this experiment(default use time-stamper)")
     # custom cli options to modify configuration from default values given in json file.
     CustomArgs = collections.namedtuple('CustomArgs','flags type target')
     options = [
         CustomArgs(['--lr', '--learning_rate'], type=float, target='optimizer;args;lr'),
         CustomArgs(['--bs', '--batch_size'], type=int, target='data_loader;args;batch_size')
+        
     ]
     config = ConfigParser.from_args(args, options)
     main(config)

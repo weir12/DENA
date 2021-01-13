@@ -38,7 +38,8 @@ class ConfigParser:
 
         # save updated config file to the checkpoint dir
         write_json(self.config, self.save_dir / 'config.json')
-
+        #configure plotter 
+        self.plotter=self.config['trainer']['plotter']
         # configure logging module
         setup_logging(self.log_dir)
         self.log_levels = {
@@ -54,6 +55,7 @@ class ConfigParser:
         """
         for opt in options:
             args.add_argument(*opt.flags, default=None, type=opt.type)
+		#If the args is not resolved yet
         if not isinstance(args, tuple):
             args = args.parse_args()
 

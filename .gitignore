@@ -4,4 +4,8 @@
 features
 features.tar*
 sample_records.txt
-sed*
+*.pdf
+/step3_train_model/result
+*.txt
+*.pyc
+*checkpoint*

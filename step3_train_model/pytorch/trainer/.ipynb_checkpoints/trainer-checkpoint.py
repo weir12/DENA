@@ -2,19 +2,20 @@ import numpy as np
 import torch
 from torchvision.utils import make_grid
 from base import BaseTrainer
-from utils import inf_loop, MetricTracker
-
+from utils import inf_loop, MetricTracker,ValidationRecorder
+import torch.nn.functional as F
 
 class Trainer(BaseTrainer):
     """
     Trainer class
     """
     def __init__(self, model, criterion, metric_ftns, optimizer, config, device,
-                 data_loader, valid_data_loader=None, lr_scheduler=None, len_epoch=None):
+                 data_loader, valid_data_loader=None, lr_scheduler=None, len_epoch=None,plotter=None):
         super().__init__(model, criterion, metric_ftns, optimizer, config)
         self.config = config
         self.device = device
         self.data_loader = data_loader
+        self.plotter=plotter
         if len_epoch is None:
             # epoch-based training
             self.len_epoch = len(self.data_loader)
@@ -81,10 +82,15 @@ class Trainer(BaseTrainer):
         """
         self.model.eval()
         self.valid_metrics.reset()
+        self.all_output=[]
+        self.all_target=[]
+        self.val_reporter=ValidationRecorder(self.config.log_dir.joinpath(str(epoch)+'.txt'))
         with torch.no_grad():
             for batch_idx, (RNN_data, CNN_data,target) in enumerate(self.valid_data_loader):
                 RNN_data,CNN_data,target = RNN_data.to(self.device), CNN_data.to(self.device),target.to(self.device)
                 output = self.model(RNN_data,CNN_data)
+                self.all_output.extend(F.softmax(output,dim=1)[:,1].cpu().detach().numpy().tolist())
+                self.all_target.extend(target.cpu().detach().numpy().tolist())
                 loss = self.criterion(output, target)
 
                 self.writer.set_step((epoch - 1) * len(self.valid_data_loader) + batch_idx, 'valid')
@@ -94,6 +100,7 @@ class Trainer(BaseTrainer):
                 #self.writer.add_image('input', make_grid(data.cpu(), nrow=8, normalize=True))
 
         # add histogram of model parameters to the tensorboard
+        self.val_reporter.write2file(self.all_output,self.all_target)
         for name, p in self.model.named_parameters():
             self.writer.add_histogram(name, p, bins='auto')
         return self.valid_metrics.result()

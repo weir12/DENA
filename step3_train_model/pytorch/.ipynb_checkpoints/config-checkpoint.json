@@ -1,15 +1,14 @@
 {
     "name": "DENA_incep-v4_res2_bi-lstm",
     "n_gpu": 1,
-
     "arch": {
         "type": "DENAModel",
         "args": {
 			"in_dim": 8, 
-			"hidden_dim":128, 
+			"hidden_dim":164, 
 			"n_layer":3, 
-			"n_classes":2 ,
-			"drop_out": false 
+			"n_classes":2,
+			"drop_out": false
 			
 		}
     },
@@ -22,7 +21,10 @@
             "batch_size": 256,
             "shuffle": true,
             "validation_split": 0.3,
-            "num_workers": 32         
+            "num_workers": 32 ,
+			"features": false,
+            "windows_len": [7,7],
+            "balance_signal": false
         }
     },
     "optimizer": {
@@ -46,14 +48,12 @@
     },
     "trainer": {
         "epochs": 10,
-
-        "save_dir": "/home/haopei/step3_train_model/result",
+        "save_dir": "/home/haopei/DENA/step3_train_model/result",
         "save_period": 1,
-        "verbosity": 2,
-        
+        "verbosity": 2,  
         "monitor": "min val_loss",
         "early_stop": 3,
-
-        "tensorboard": false
+        "tensorboard": false,
+		"plotter":["ROC","PRC"]
     }
 }

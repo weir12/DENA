@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 from itertools import repeat
 from collections import OrderedDict
-
+import torch.nn.functional as F
 
 def ensure_dir(dirname):
     dirname = Path(dirname)
@@ -65,6 +65,15 @@ class MetricTracker:
 
     def result(self):
         return dict(self._data.average)
+class ValidationRecorder:
+	'''
+	Record the predicted labels and ground-truth labels of the validation set for downstream analysis
+	'''
+	def __init__(self,output_file):
+			self.output_file=str(output_file)
+	def write2file(self,output,target):
+		pd.DataFrame({'output':output,'target':target}).to_csv(self.output_file,sep='\t',index=0)
+		
 	
 def polish_signal(signal_list,padding_num=0,length=256):
 	if len(signal_list)==length:
