@@ -2,7 +2,7 @@
 ![image]( ./DENA_log.jpg)
 #  DENA (Deeplearning Explore Nanopore m6A)
  
-One Paragraph of project description goes here
+Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
  
 ## Getting Started
  
@@ -15,6 +15,7 @@ What things you need to install the software and how to install them
 ```
 git clone https://github.com/weir12/DENA.git
 ```
+
  
 ## Author: liangou
 ## E-mail:liangou@ips.ac.cn
@@ -34,7 +35,7 @@ ${variable} : You need to replace it with the  Custom Value
 
 
 ```bash
-python3 XGboost_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
+python3 LSTM_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
 ```
 You will get result(candidate_predict_pos.txt) like this
 ```
@@ -81,7 +82,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 						help=("Enable BRI mode (Reduce RAM consumption of BAM files)"))	
 ```
 ```bash
-python3 XGboost_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 3 3
+python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 3 3
 ```
 
 - You will get result(*.tmp) like this
@@ -110,7 +111,7 @@ In this step,you need Provide the following parameters:
 - conda install pytorch torchvision torchaudio cpuonly -c pytorch
 #### Example
 ```bash
-python XGboost_predict.py -i ${path_features} -m ${path_models} -o ${path_output} -p ${prefix_outfile} -d 
+python LSTM_predict.py -i ${path_features} -m ${path_models} -o ${path_output} -p ${prefix_outfile} -d 
 ```
 
 - You will get result **${prefix_outfile}**.tsv in **${path_output}** like this
