@@ -3,22 +3,25 @@
 #  DENA (Deeplearning Explore Nanopore m6A)
  
 Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
- 
+[toc]
+
+## Author: liangou
+## E-mail:liangou@ips.ac.cn
 ## Getting Started
  
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
  
-### Prerequisites
+## 0.Prerequisites
  
 What things you need to install the software and how to install them
- 
-```
-git clone https://github.com/weir12/DENA.git
-```
-
- 
-## Author: liangou
-## E-mail:liangou@ips.ac.cn
+1. Unix like system(centos,ubuntu,etc)
+2. Cuda-supported graphics cards
+3. Python>=3.7.x and Pytorch
+4. tombo,minimap2,samtools
+## 1.Input data required
+1. a batch of fast5 files containing the raw current signals
+2. a fastq file which is contain basecalled sequence corresponding fast5 above
+3. Appropriate reference sequence(Transcriptome is recommended for RNA data)
 
 
 Tips:
@@ -28,11 +31,27 @@ ${variable} : You need to replace it with the  Custom Value
 
 - We no longer need external C++ tools
 - Fixed compatibility bugs in FASTA file of some species
-#### Requirement
 
-- pip install pyfaidx
+## 2.Signal re-sqguiggle and sequence alignment
+### 2.1 tombo re-sqguiggle
+This step is to obtain a unique mapping between the signal fragment of each base of each reads and the reference sequence
+For detailed help, please see https://github.com/nanoporetech/tombo
+```
+tombo resquiggle --processes {thread} --ignore-read-locks --max-scaling-iterations 5 --rna --basecall-group "Basecall_1D_001" --num-most-common-errors 5 --include-event-stdev --overwrite --signal-length-range 0 500000 {params.fast5} {params.ref}
+```
+
+### 2.2 sequence alianment based on minimap2
+```
+minimap2 -a -uf -k10 --sam-hit-only --secondary=no ${transcriptome} basecalls.reverse.fa > basecalls.sam
+samtools flagstat basecalls.sam
+samtools view -bS -F 2048 -F 16 -F 4 basecalls.sam >basecalls.bam
+samtools sort -@ 12 basecalls.bam>basecalls.sort.bam
+samtools index basecalls.sort.bam
+```
 
 
+## 3.extract features
+### 3.1 Obtaining candidate sites
 
 ```bash
 python3 LSTM_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
@@ -41,7 +60,7 @@ You will get result(candidate_predict_pos.txt) like this
 ```
 AT1G01010.1     17      22      +       AAACC
 ```
-### 2.extract features
+
 #### New version function
 
 - Support for reading BAM files in BRI mode to reduce memory consumption
@@ -81,6 +100,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 	parser_b.add_argument('--bri',action='store_true',default=False,
 						help=("Enable BRI mode (Reduce RAM consumption of BAM files)"))	
 ```
+### 3.2 extracted features
 ```bash
 python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 3 3
 ```
