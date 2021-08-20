@@ -3,8 +3,32 @@
 #  DENA (Deeplearning Explore Nanopore m6A)
  
 Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
-[toc]
-
+- [DENA (Deeplearning Explore Nanopore m6A)](#dena-deeplearning-explore-nanopore-m6a)
+  - [Author: liangou](#author-liangou)
+  - [E-mail:liangou@ips.ac.cn](#e-mailliangouipsaccn)
+  - [Getting Started](#getting-started)
+  - [0.Prerequisites](#0prerequisites)
+  - [1.Input data required](#1input-data-required)
+    - [1.Obtain coordinates matching motif in reference](#1obtain-coordinates-matching-motif-in-reference)
+      - [New version function](#new-version-function)
+  - [2.Signal re-sqguiggle and sequence alignment](#2signal-re-sqguiggle-and-sequence-alignment)
+    - [2.1 tombo re-sqguiggle](#21-tombo-re-sqguiggle)
+    - [2.2 sequence alianment based on minimap2](#22-sequence-alianment-based-on-minimap2)
+  - [3.extract features](#3extract-features)
+    - [3.1 Obtaining candidate sites](#31-obtaining-candidate-sites)
+      - [New version function](#new-version-function-1)
+    - [Parameters panel](#parameters-panel)
+    - [3.2 extracted features](#32-extracted-features)
+    - [3.Predict(v3.0)](#3predictv30)
+      - [New version function](#new-version-function-2)
+      - [Parameters](#parameters)
+      - [Requirement](#requirement)
+      - [Example](#example)
+    - [](#)
+    - [TroubleShoot](#troubleshoot)
+  - [Utils](#utils)
+    - [1.Dimension reduction & Cluster of a dataset](#1dimension-reduction--cluster-of-a-dataset)
+    - [2.Absolute difference of mean](#2absolute-difference-of-mean)
 ## Author: liangou
 ## E-mail:liangou@ips.ac.cn
 ## Getting Started
@@ -25,7 +49,7 @@ What things you need to install the software and how to install them
 
 
 Tips:
-${variable} : You need to replace it with the  Custom Value
+${variable} : You need to replace it with the  Custom Value
 ### 1.Obtain coordinates matching motif in reference
 #### New version function
 
@@ -112,7 +136,7 @@ python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000
 e944b3ff-156c-409f-95f3-996dfa3d3fd3    26.0,30.0,28.0,25.0,31.0,158.0,6.0,47.0,37.0,27.0,2.3582877438291905,2.354059678502405,-0.22480153918158693,-0.5296594244218555,1.084794467401169,2.5690832257777787,2.4814037210635487,-0.24292374684288695,-0.5435391915773902,1.122371397992982,0.7615589741556634,0.6712493289989668,0.19113118923616254,0.20057491958760532,0.21721818493112435
 ```
 ### 3.Predict(v3.0)
-Tips :If the input features  **NOT changed.**here is **NO** need to repeat step 2
+Tips :If the input features  **NOT changed.**here is **NO** need to repeat step 2
 #### New version function
 add "-d" in cmd for output m6a probability for each read at each site
  Added support for deep learning
@@ -126,7 +150,7 @@ In this step,you need Provide the following parameters:
 1. ${prefix_outfile} The prefix of the output file
 #### Requirement
 
-- pip install lightgbm
+- pip install lightgbm
 - pip install xgboost
 - conda install pytorch torchvision torchaudio cpuonly -c pytorch
 #### Example
@@ -219,4 +243,3 @@ AT5G67030.1     2308
 -  result is printed, like this（Data used for drawing is also saved for downstream analysis and visual adjustment）
 
 ![](https://cdn.nlark.com/yuque/0/2021/png/644304/1618468669638-aef7bc8b-726c-40d1-b79c-15f5afa5fcba.png#clientId=ub8b101f3-54a8-4&from=paste&height=331&id=u1122a54a&margin=%5Bobject%20Object%5D&originHeight=1323&originWidth=1822&originalType=binary&size=146707&status=done&style=none&taskId=ub6f0d7ec-52b6-4c98-b06a-badb0dd96f6&width=455.5)
-
