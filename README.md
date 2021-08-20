@@ -1,5 +1,6 @@
 
 ![image]( ./DENA_log.jpg)
+![image](https://img.shields.io/badge/Python-3.7-green) ![image](https://img.shields.io/badge/Pytorch-1.8-blue) ![image](https://img.shields.io/badge/Centos-8-yellow)
 - [DENA (Deeplearning Explore Nanopore m6A)](#dena-deeplearning-explore-nanopore-m6a)
   - [Author: liangou](#author-liangou)
   - [E-mail:liangou@ips.ac.cn](#e-mailliangouipsaccn)
