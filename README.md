@@ -31,6 +31,8 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
 
 ## Author: liangou
 ## E-mail:liangou@ips.ac.cn
+Sincere thanks to [in-house_scripts](./in-house_scripts) developed by https://github.com/q1134269149
+
 ## Getting Started
  
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
