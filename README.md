@@ -36,10 +36,10 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
  
 ## 0.Prerequisites
- 
-What things you need to install the software and how to install them
+Utilizing Conda or virtualenv to create a relatively independent & clean work environment may be a wise choice for using DENA 
+Here are What things you need to install(Please confirm one by one):
 1. Unix like system(centos,ubuntu,etc)
-2. Cuda-supported graphics cards
+2. Cuda-supported graphics cards(optional)
 3. Python>=3.7.x and Pytorch
 4. tombo,minimap2,samtools
 ## 1.Input data required
@@ -49,8 +49,16 @@ What things you need to install the software and how to install them
 
 
 Tips:
-${variable} : You need to replace it with the  Custom Value
+
+${variable} : You need to assign it with the your actual value
 ### 1.Obtain coordinates matching motif in reference
+```bash
+python3 LSTM_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
+```
+You will get result(candidate_predict_pos.txt) like this
+```
+AT1G01010.1     17      22      +       AAACC
+```
 #### New version function
 
 - We no longer need external C++ tools
@@ -65,6 +73,8 @@ tombo resquiggle --processes {thread} --ignore-read-locks --max-scaling-iteratio
 ```
 
 ### 2.2 sequence alianment based on minimap2
+For detailed help, please see [minimap2](https://github.com/lh3/minimap2) [samtools](https://github.com/samtools/samtools) 
+
 ```
 minimap2 -a -uf -k10 --sam-hit-only --secondary=no ${transcriptome} basecalls.reverse.fa > basecalls.sam
 samtools flagstat basecalls.sam
@@ -75,15 +85,6 @@ samtools index basecalls.sort.bam
 
 
 ## 3.extract features
-### 3.1 Obtaining candidate sites
-
-```bash
-python3 LSTM_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
-```
-You will get result(candidate_predict_pos.txt) like this
-```
-AT1G01010.1     17      22      +       AAACC
-```
 
 #### New version function
 
@@ -94,7 +95,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 
 - Flexible window Settings are now supported
 - In this step,you need provide two input params for program:fast5_folder(re-squiggle by tombo) and bam file(sorted & index)
-### Parameters panel
+#### Parameters panel
 ```python
 	parser.add_argument('--processes',default=24,type=int,
 						help=("Number of processes allocated"))
@@ -124,7 +125,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 	parser_b.add_argument('--bri',action='store_true',default=False,
 						help=("Enable BRI mode (Reduce RAM consumption of BAM files)"))	
 ```
-### 3.2 extracted features
+
 ```bash
 python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 3 3
 ```
@@ -135,8 +136,8 @@ python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000
 37b79f1c-c3c2-4c6f-a25c-65e618b7bb6f    28.0,27.0,24.0,31.0,24.0,74.0,6.0,33.0,27.0,63.0,2.6680189601886424,2.4252261046166588,0.16661375589914051,-0.4574264926055352,0.8548283129364287,2.6957830373199303,2.568959475115271,0.08321765590395497,-0.5128530864579424,0.8695237415728408,0.45954324955726,0.7483187244003591,0.23116851931302654,0.21901705697503512,0.23758996696952467
 e944b3ff-156c-409f-95f3-996dfa3d3fd3    26.0,30.0,28.0,25.0,31.0,158.0,6.0,47.0,37.0,27.0,2.3582877438291905,2.354059678502405,-0.22480153918158693,-0.5296594244218555,1.084794467401169,2.5690832257777787,2.4814037210635487,-0.24292374684288695,-0.5435391915773902,1.122371397992982,0.7615589741556634,0.6712493289989668,0.19113118923616254,0.20057491958760532,0.21721818493112435
 ```
-### 3.Predict(v3.0)
-Tips :If the input features  **NOT changed.**here is **NO** need to repeat step 2
+### 4.Predict(v3.0)
+Tips :If the input features  **NOT changed**  here is **NO** need to repeat run step 2
 #### New version function
 add "-d" in cmd for output m6a probability for each read at each site
  Added support for deep learning
