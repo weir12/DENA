@@ -1,8 +1,5 @@
 
 ![image]( ./DENA_log.jpg)
-#  DENA (Deeplearning Explore Nanopore m6A)
- 
-Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
 - [DENA (Deeplearning Explore Nanopore m6A)](#dena-deeplearning-explore-nanopore-m6a)
   - [Author: liangou](#author-liangou)
   - [E-mail:liangou@ips.ac.cn](#e-mailliangouipsaccn)
@@ -15,11 +12,9 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
     - [2.1 tombo re-sqguiggle](#21-tombo-re-sqguiggle)
     - [2.2 sequence alianment based on minimap2](#22-sequence-alianment-based-on-minimap2)
   - [3.extract features](#3extract-features)
-    - [3.1 Obtaining candidate sites](#31-obtaining-candidate-sites)
       - [New version function](#new-version-function-1)
-    - [Parameters panel](#parameters-panel)
-    - [3.2 extracted features](#32-extracted-features)
-    - [3.Predict(v3.0)](#3predictv30)
+      - [Parameters panel](#parameters-panel)
+    - [4.Predict(v3.0)](#4predictv30)
       - [New version function](#new-version-function-2)
       - [Parameters](#parameters)
       - [Requirement](#requirement)
@@ -29,6 +24,10 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
   - [Utils](#utils)
     - [1.Dimension reduction & Cluster of a dataset](#1dimension-reduction--cluster-of-a-dataset)
     - [2.Absolute difference of mean](#2absolute-difference-of-mean)
+#  DENA (Deeplearning Explore Nanopore m6A)
+ 
+Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
+
 ## Author: liangou
 ## E-mail:liangou@ips.ac.cn
 ## Getting Started
