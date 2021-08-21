@@ -15,7 +15,7 @@
   - [3.extract features](#3extract-features)
       - [New version function](#new-version-function-1)
       - [Parameters panel](#parameters-panel)
-    - [4.Predict(v3.0)](#4predictv30)
+  - [4.Predict(v3.0)](#4predictv30)
       - [New version function](#new-version-function-2)
       - [Parameters](#parameters)
       - [Requirement](#requirement)
@@ -153,8 +153,7 @@ In this step,you need Provide the following parameters:
 1. ${prefix_outfile} The prefix of the output file
 #### Requirement
 
-- pip install lightgbm
-- pip install xgboost
+
 - conda install pytorch torchvision torchaudio cpuonly -c pytorch
 #### Example
 ```bash
