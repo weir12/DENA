@@ -20,7 +20,6 @@
       - [Parameters](#parameters)
       - [Requirement](#requirement)
       - [Example](#example)
-    - [](#)
     - [TroubleShoot](#troubleshoot)
   - [Utils](#utils)
     - [1.Dimension reduction & Cluster of a dataset](#1dimension-reduction--cluster-of-a-dataset)
