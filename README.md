@@ -2,7 +2,7 @@
 ![image]( ./DENA_log.jpg)
 ![image](https://img.shields.io/badge/Python-3.7-green) ![image](https://img.shields.io/badge/Pytorch-1.8-blue) ![image](https://img.shields.io/badge/Centos-8-yellow)
 - [DENA (Deeplearning Explore Nanopore m6A)](#dena-deeplearning-explore-nanopore-m6a)
-  - [Author: liangou](#author-liangou)
+  - [Author: liang Ou](#author-liang-Ou)
   - [E-mail:liangou@ips.ac.cn](#e-mailliangouipsaccn)
   - [Getting Started](#getting-started)
   - [0.Prerequisites](#0prerequisites)
@@ -10,8 +10,9 @@
     - [1.Obtain coordinates matching motif in reference](#1obtain-coordinates-matching-motif-in-reference)
       - [New version function](#new-version-function)
   - [2.Signal re-sqguiggle and sequence alignment](#2signal-re-sqguiggle-and-sequence-alignment)
-    - [2.1 tombo re-sqguiggle](#21-tombo-re-sqguiggle)
-    - [2.2 sequence alianment based on minimap2](#22-sequence-alianment-based-on-minimap2)
+    - [2.1 fast5 base-calling](#21-fast5-base-calling)
+    - [2.2 tombo re-sqguiggle](#22-tombo-re-sqguiggle)
+    - [2.3 sequence alianment based on minimap2](#23-sequence-alianment-based-on-minimap2)
   - [3.extract features](#3extract-features)
       - [New version function](#new-version-function-1)
       - [Parameters panel](#parameters-panel)
@@ -24,35 +25,38 @@
   - [Utils](#utils)
     - [1.Dimension reduction & Cluster of a dataset](#1dimension-reduction--cluster-of-a-dataset)
     - [2.Absolute difference of mean](#2absolute-difference-of-mean)
+  - [Datasets](#Datasets)
+  - [Citing](#Citing)
+  - [Contact](#Contact)
 #  DENA (Deeplearning Explore Nanopore m6A)
  
 Deep learning model used to detect RNA m6a with read level based on the Nanopore direct RNA data.
 
-## Author: liangou
-## E-mail:liangou@ips.ac.cn
-Sincere thanks to [in-house_scripts](./in-house_scripts) developed by https://github.com/q1134269149
+## Author: liang Ou
+### E-mail:liangou@ips.ac.cn
+### Sincere thanks to [in-house_scripts](./in-house_scripts) developed by Hang Qin (https://github.com/q1134269149).
 
 ## Getting Started
  
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
  
-## 0.Prerequisites
+### 0.Prerequisites
 Utilizing Conda or virtualenv to create a relatively independent & clean work environment may be a wise choice for using DENA 
 Here are What things you need to install(Please confirm one by one):
 1. Unix like system(centos,ubuntu,etc)
 2. Cuda-supported graphics cards(optional)
 3. Python>=3.7.x and Pytorch
 4. tombo,minimap2,samtools
-## 1.Input data required
+
+#### Input data required
 1. a batch of fast5 files containing the raw current signals
 2. a fastq file which is contain basecalled sequence corresponding fast5 above
 3. Appropriate reference sequence(Transcriptome is recommended for RNA data)
 
-
-Tips:
-
+*Tips:
 ${variable} : You need to assign it with the your actual value
-### 1.Obtain coordinates matching motif in reference
+
+### 1.Obtain coordinates matching motif in fasta sequence of reference (Must be transcriptome reference)
 ```bash
 python3 LSTM_extract.py get_pos --fasta ${fasta_fn}  --motif 'RRACH' --output ./candidate_predict_pos.txt
 ```
@@ -60,29 +64,49 @@ You will get result(candidate_predict_pos.txt) like this
 ```
 AT1G01010.1     17      22      +       AAACC
 ```
+*Note:Please confirm that the transcriptome reference is provided instead of the genomic reference before this step.
+
 #### New version function
 
 - We no longer need external C++ tools
 - Fixed compatibility bugs in FASTA file of some species
 
-## 2.Signal re-sqguiggle and sequence alignment
-### 2.1 tombo re-sqguiggle
+### 2.fast5 base-calling, Signal re-sqguiggle and sequence alignment
+#### 2.1 fast5 base-calling
+(Optional)If the fast5 files was multi_read_fast5 files, it is necessary to convert folders containing multi_read_fast5 files into single_read_fast5 files using  https://github.com/nanoporetech/ont_fast5_api.
+```bash
+multi_to_single_fast5 -t 20 -i ${multi_read_fast5_folder} -s ${single_read_fast5_folder} --recursive
+```
+
+This step is to obtain the fastq sequences from fast5 files by base-calling using [guppy](Preferred version3.2.4)
+```bash
+${SoftPath}/guppy_basecaller -i ${single_read_fast5_folder} -s ${outfile} --flowcell FLO-MIN106 --kit SQK-RNA001 --cpu_threads_per_caller {thread} --qscore_filtering --fast5_out --records_per_fastq 0 --recursive
+cat ${outfile}/pass/*.fastq > basecalls.fq
+```
+-${SoftPath}: the path of guppy software   
+-${single_read_fast5_folder}: the path of single fast5 files that need to base-call.  
+-${outfile}: the path of output folder  
+*Note: Please check the version of `flowcell` and `kit` of the Library Building used in the experiments,and set them correctly.  
+
+#### 2.2 tombo re-sqguiggle
 This step is to obtain a unique mapping between the signal fragment of each base of each reads and the reference sequence
 For detailed help, please see https://github.com/nanoporetech/tombo
+```bash
+tombo resquiggle --rna --processes {thread} --corrected-group RawGenomeCorrected_001 --basecall-group Basecall_1D_001 --include-event-stdev --overwrite --ignore-read-locks ${params.fast5} ${params.ref}
 ```
-tombo resquiggle --processes {thread} --ignore-read-locks --max-scaling-iterations 5 --rna --basecall-group "Basecall_1D_001" --num-most-common-errors 5 --include-event-stdev --overwrite --signal-length-range 0 500000 {params.fast5} {params.ref}
-```
+*Note: Please check the `basecall-group` to be used before re-sqguiggle, and set the `corrected-group`.
 
-### 2.2 sequence alianment based on minimap2
+#### 2.3 sequence alianment based on minimap2
 For detailed help, please see [minimap2](https://github.com/lh3/minimap2) [samtools](https://github.com/samtools/samtools) 
 
-```
+```bash
 minimap2 -ax map-ont -L --secondary=no ${transcriptome} ${basecalls.fq} | samtools view -bh -F 2324 | samtools sort -O bam > basecalls.bam
 samtools index basecalls.bam
 ```
+-${transcriptome}: the fasta of transcriptome reference  
+-${basecalls.fq}: the fastq of base-calling from fast5 files in step 2.1  
 
-
-## 3.extract features
+### 3.extract features
 
 #### New version function
 
@@ -91,8 +115,9 @@ samtools index basecalls.bam
 Install the C ++ libraries and Python wrappers to enable this functionality
 [https://github.com/nanoporetech/bripy](https://github.com/nanoporetech/bripy) [https://github.com/jts/bri](https://github.com/jts/bri)
 
-- Flexible window Settings are now supported
-- In this step,you need provide two input params for program:fast5_folder(re-squiggle by tombo) and bam file(sorted & index)
+- Flexible window Settings are now supported  
+- In this step,you need provide two input params for program:fast5_folder(has re-squiggled by tombo) and bam file(sorted & index)  
+
 #### Parameters panel
 ```python
 	parser.add_argument('--processes',default=24,type=int,
@@ -125,8 +150,10 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 ```
 
 ```bash
-python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 3 3
+python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 2 2
 ```
+-${RawGenomeCorrected_000}: The path of `corr_grp` generated in step 2.2. Please confirm to set the same `corr_grp` as step 2.2.  
+*Note: `--windows 2 2` indicates that a total of 5 bases are extracted, which contains the candidate modified site and 2 bases upstream and downstream of it, e.g. "AA**A**CA".
 
 - You will get result(*.tmp) like this
 ```
@@ -140,18 +167,16 @@ Tips :If the input features  **NOT changed**  here is **NO** need to repeat run 
 add "-d" in cmd for output m6a probability for each read at each site
  Added support for deep learning
 **Caution** :Using deep learning model will occupy a lot of computing resources and time costing without GPU
+
 #### Parameters
 In this step,you need Provide the following parameters:
-
 1. ${path_features} :Path contain [0-9]*.tmp (generated by step 2)
-1. ${path_models} :Path contain *.dat(ensemble learning) or *.pkl (deep learning) 
-1. ${path_output} The output path
-1. ${prefix_outfile} The prefix of the output file
+2. ${path_models} :Path contain *.dat(ensemble learning) or *.pkl (deep learning) 
+3. ${path_output} The output path
+4. ${prefix_outfile} The prefix of the output file
 #### Requirement
+- conda install pytorch torchvision torchaudio cpuonly -c pytorch
 
-
-- conda install pytorch torchvision torchaudio cpuonly -c pytorch  (If you don't have CUDA-enabled devices)
-- conda install pytorch torchvision torchaudio cudatoolkit -c pytorch 
 #### Example
 ```bash
 python LSTM_predict.py -i ${path_features} -m ${path_models} -o ${path_output} -p ${prefix_outfile} -d 
@@ -178,10 +203,11 @@ b129005a-01e7-49f8-bb50-aadf0d57f079	0.235
 85a565d6-08c1-4819-a12a-2beacbf63319	0.647
 a5fafedc-1539-4cb8-ad6d-72c8699220cd	0.498
 ```
-### 
+
 ### TroubleShoot
 
 - Make sure the rules for gene names are consistent among bam file,fast5 files and fasta file
+
 ## Utils
 ### 1.Dimension reduction & Cluster of a dataset
 
@@ -242,3 +268,14 @@ AT5G67030.1     2308
 -  result is printed, like this（Data used for drawing is also saved for downstream analysis and visual adjustment）
 
 ![](https://cdn.nlark.com/yuque/0/2021/png/644304/1618468669638-aef7bc8b-726c-40d1-b79c-15f5afa5fcba.png#clientId=ub8b101f3-54a8-4&from=paste&height=331&id=u1122a54a&margin=%5Bobject%20Object%5D&originHeight=1323&originWidth=1822&originalType=binary&size=146707&status=done&style=none&taskId=ub6f0d7ec-52b6-4c98-b06a-badb0dd96f6&width=455.5)
+
+## Datasets
+*All direct RNA-Seq reads of wild-type, fip37-4 and mtb A.thaliana lines generated by this study have been submitted to the ENA under accession `PRJEB45935` (**waiting for release**).
+
+## Citing
+If you found this work useful and used our software, please cite:
+
+Link to paper:
+
+## Contact
+All suggestions are welcome to liangou@ips.ac.cn
