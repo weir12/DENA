@@ -150,7 +150,8 @@ In this step,you need Provide the following parameters:
 #### Requirement
 
 
-- conda install pytorch torchvision torchaudio cpuonly -c pytorch
+- conda install pytorch torchvision torchaudio cpuonly -c pytorch  (If you don't have CUDA-enabled devices)
+- conda install pytorch torchvision torchaudio cudatoolkit -c pytorch 
 #### Example
 ```bash
 python LSTM_predict.py -i ${path_features} -m ${path_models} -o ${path_output} -p ${prefix_outfile} -d 
