@@ -77,11 +77,8 @@ tombo resquiggle --processes {thread} --ignore-read-locks --max-scaling-iteratio
 For detailed help, please see [minimap2](https://github.com/lh3/minimap2) [samtools](https://github.com/samtools/samtools) 
 
 ```
-minimap2 -a -uf -k10 --sam-hit-only --secondary=no ${transcriptome} basecalls.reverse.fa > basecalls.sam
-samtools flagstat basecalls.sam
-samtools view -bS -F 2048 -F 16 -F 4 basecalls.sam >basecalls.bam
-samtools sort -@ 12 basecalls.bam>basecalls.sort.bam
-samtools index basecalls.sort.bam
+minimap2 -ax map-ont -L --secondary=no ${transcriptome} ${basecalls.fq} | samtools view -bh -F 2324 | samtools sort -O bam > basecalls.bam
+samtools index basecalls.bam
 ```
 
 
