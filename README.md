@@ -149,6 +149,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 ```bash
 python3 LSTM_extract.py --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 2 2
 ```
+-Please set the same `corr_grp` as step 2.2.  
 *Note: `--windows 2 2` indicates that a total of 5 bases are extracted, which contains the candidate modified site and 2 bases upstream and downstream of it, e.g. "AA**A**CA".
 
 - You will get result(*.tmp) like this
