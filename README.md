@@ -70,7 +70,7 @@ AT1G01010.1     17      22      +       AAACC
 
 ## 2.fast5 base-calling, Signal re-sqguiggle and sequence alignment
 ### 2.1 fast5 base-calling
-(Optional)If the fast5 files was multi_read_fast5 files, it is necessary to convert folders containing multi_read_fast5 files into single_read_fast5 files using [ont_fast5_api] (https://github.com/nanoporetech/ont_fast5_api).
+(Optional)If the fast5 files was multi_read_fast5 files, it is necessary to convert folders containing multi_read_fast5 files into single_read_fast5 files using  https://github.com/nanoporetech/ont_fast5_api.
 ```bash
 multi_to_single_fast5 -t 20 -i ${multi_read_fast5_folder} -s ${single_read_fast5_folder} --recursive
 ```
@@ -80,10 +80,10 @@ This step is to obtain the fastq sequences from fast5 files by base-calling usin
 ${SoftPath}/guppy_basecaller -i ${single_read_fast5_folder} -s ${outfile} --flowcell FLO-MIN106 --kit SQK-RNA001 --cpu_threads_per_caller {thread} --qscore_filtering --fast5_out --records_per_fastq 0 --recursive
 cat ${outfile}/pass/*.fastq > basecalls.fq
 ```
--${SoftPath}: the path of guppy software
--${single_read_fast5_folder}: the path of single fast5 files that need to base-call.
--${outfile}: the path of output folder
-*Note: Please check the version of `flowcell` and `kit` of the Library Building used in the experiments,and set them correctly.
+-${SoftPath}: the path of guppy software   
+-${single_read_fast5_folder}: the path of single fast5 files that need to base-call.  
+-${outfile}: the path of output folder  
+*Note: Please check the version of `flowcell` and `kit` of the Library Building used in the experiments,and set them correctly.  
 
 ### 2.2 tombo re-sqguiggle
 This step is to obtain a unique mapping between the signal fragment of each base of each reads and the reference sequence
@@ -100,8 +100,8 @@ For detailed help, please see [minimap2](https://github.com/lh3/minimap2) [samto
 minimap2 -ax map-ont -L --secondary=no ${transcriptome} ${basecalls.fq} | samtools view -bh -F 2324 | samtools sort -O bam > basecalls.bam
 samtools index basecalls.bam
 ```
--${transcriptome}: the fasta of transcriptome reference
--${basecalls.fq}: the fastq of base-calling from fast5 files in step 2.1
+-${transcriptome}: the fasta of transcriptome reference  
+-${basecalls.fq}: the fastq of base-calling from fast5 files in step 2.1  
 
 ## 3.extract features
 
@@ -112,8 +112,8 @@ samtools index basecalls.bam
 Install the C ++ libraries and Python wrappers to enable this functionality
 [https://github.com/nanoporetech/bripy](https://github.com/nanoporetech/bripy) [https://github.com/jts/bri](https://github.com/jts/bri)
 
-- Flexible window Settings are now supported
-- In this step,you need provide two input params for program:fast5_folder(has re-squiggled by tombo) and bam file(sorted & index)
+- Flexible window Settings are now supported  
+- In this step,you need provide two input params for program:fast5_folder(has re-squiggled by tombo) and bam file(sorted & index)  
 
 #### Parameters panel
 ```python
