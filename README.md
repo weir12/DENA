@@ -48,7 +48,7 @@ Here are What things you need to install(Please confirm one by one):
 3. Python>=3.7.x and Pytorch
 4. tombo,minimap2,samtools
 
-**Note:** You also can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381.
+**Note:** You can also get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381.
 
 #### Input data required
 1. a batch of fast5 files containing the raw current signals
