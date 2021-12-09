@@ -48,7 +48,7 @@ Here are What things you need to install(Please confirm one by one):
 3. Python>=3.7.x and Pytorch
 4. tombo,minimap2,samtools
 
-**Note:** You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381. And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**__" .
+**Note:** You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381. And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**" .
 
 #### Input data required
 1. a batch of fast5 files containing the raw current signals
