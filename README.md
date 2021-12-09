@@ -41,14 +41,14 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
  
 ### 0.Prerequisites
-Utilizing Conda or virtualenv to create a relatively independent & clean work environment may be a wise choice for using DENA 
+Utilizing Conda or virtualenv to create a relatively independent & clean work environment may be a wise choice for using DENA  
 Here are What things you need to install(Please confirm one by one):
 1. Unix like system(centos,ubuntu,etc)
 2. Cuda-supported graphics cards(optional)
 3. Python>=3.7.x and Pytorch
 4. tombo,minimap2,samtools
 
-**Note:** You can also get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381.
+**Note:** You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381. And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**__" .
 
 #### Input data required
 1. a batch of fast5 files containing the raw current signals
