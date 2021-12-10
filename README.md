@@ -51,10 +51,10 @@ Here are What things you need to install(Please confirm one by one):
 4. tombo,minimap2,samtools
 
 
-**Note:** 
-You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381.
+**Note:** You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381. And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**__" .
 
 And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**" .
+
 
 
 #### Input data required
@@ -298,3 +298,8 @@ Hang Qin, Liang Ou, Jian Gao, Longxian Chen, Jiawei Wang, Pei Hao, Xuan Li: DENA
 
 ## Contact
 All suggestions are welcome to liangou@ips.ac.cn
+
+## licence
+MIT(<http://mit-license.org/>)
+Copyright © 2021 Liang Ou
+
