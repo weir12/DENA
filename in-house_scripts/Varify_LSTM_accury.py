@@ -48,10 +48,10 @@ def Extract_DepthSites(dfsList, labelList, sampleNameList, depth, ratio):
     label = labelList[0]
     for i, df in enumerate(dfsList):
         df["label"] = get_label(df, label)
-        #df["totalRN"] = df["totalRN"].astype("int64") #用于totalRN列数值直接就是整数的情况
-        df["totalRN"] = df["totalRN"].astype("float64").astype("int64") #用于totalRN列数值带小数的时候
+        #df["totalRN"] = df["totalRN"].astype("int64")
+        df["totalRN"] = df["totalRN"].astype("float64").astype("int64")
         df["ratio"] = df["ratio"].astype("float64")
-        # df = df.loc[df["totalRN"] >= df["totalRN"].mean() & df["ratio" >= 0.1]] #提取覆盖深度大于平均深度同时ratio大于等于0.1的行
+        # df = df.loc[df["totalRN"] >= df["totalRN"].mean() & df["ratio" >= 0.1]]
         df = df[(df["totalRN"] >= float(depth)) & (df["ratio"] >= float(ratio))] 
         sampleName = sampleNameList[i]
         tmp = "LSTM_genoLoci_T%sR%s.txt"%(str(depth), str(ratio))
@@ -76,7 +76,7 @@ def Veen(dfsList, sampleNames):
     for i in range(len(labelValList)):
         ValueSet.append(set(labelValList[i])) #covert each element of valuelist from list() to set()
     my_dpi=150
-    #控制图尺寸的同时，使图高分辨率（高清）显示
+   
     plt.figure(figsize=(600/my_dpi, 600/my_dpi), dpi=my_dpi)
     if len(labelValList) > 4:
         sys.exit("Do not plot over 3 datasets")
