@@ -2,7 +2,7 @@
 """
 Created on Tue Mar 9 21:20:14 2021
 @convert transLoci to genoLoci base on refrence of gtf annotation
-@author: hqin
+@author: Hang Qin
 Platform: Linux, python3.6
 Notes: the gtf file must be consistent with the transcriptome reference used for mapping in running DENA, such as download the cdna.fa and .gtf files of the same release version from Ensembl database
 """
