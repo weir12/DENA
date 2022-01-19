@@ -58,8 +58,8 @@ def get_label(df, labels):
     """
     labs =list()
     lab = [str(i) for i in labels.strip().split(",")]
-    for item in df.iterrows():# 按行遍历df
-        item = item[1] #返回该行所有值，item[0]为返回改行index
+    for item in df.iterrows():
+        item = item[1]
         ele = "_".join([str(item[i]) for i in lab])
         labs.append(ele)
     return labs
@@ -138,7 +138,7 @@ def Veen(flist):
     for i in range(len(valueList)):
         ValueSet.append(set(valueList[i])) #covert each element of valuelist from list() to set()
     my_dpi=150
-    #控制图尺寸的同时，使图高分辨率（高清）显示
+    
     plt.figure(figsize=(600/my_dpi, 600/my_dpi), dpi=my_dpi)
     if len(valueList) > 4:
         sys.exit("Do not plot over 3 datasets")
@@ -178,19 +178,19 @@ def Veen(flist):
 def Box_all(flist):
     dfs, sampleNames, valueList, RatioValues= decodeInputlist(flist)
     my_dpi=150 
-    plt.figure(figsize=(150*len(valueList)/my_dpi, 450/my_dpi), dpi=my_dpi) #控制图尺寸的同时，使图高分辨率（高清）显示
-    # sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    # sns.set_style("ticks") #xy轴都有非常短的小刻度
-    current_palette = sns.color_palette("hls",len(sampleNames)) #就是这里穿参数，一般使用“hls”,l是亮度，s是饱和度,12表示12种颜色
+    plt.figure(figsize=(150*len(valueList)/my_dpi, 450/my_dpi), dpi=my_dpi) 
+    # sns.set(style="white", palette = "muted", color_codes=True) 
+    # sns.set_style("ticks") 
+    current_palette = sns.color_palette("hls",len(sampleNames))
     sns.boxplot(data = RatioValues, palette = current_palette, width = 0.2, fliersize= 0.6, linewidth= 0.8, showfliers=False)
     sns.despine(offset=0.3)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(0.8);#设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(0.8);#设置左边坐标轴的粗细
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(0.8);
+    ax.spines['left'].set_linewidth(0.8);
     ax.set_ylim([-0.05, 1]) 
-    ax.set_xlabel("Samples", fontsize=7) #设置坐标标签字体大小
+    ax.set_xlabel("Samples", fontsize=7) 
     ax.set_ylabel("Ratio", fontsize=7)
-    plt.xticks(range(0,len(sampleNames),1),labels = [sampleNames[0],sampleNames[1]],fontsize=6) #设置坐标刻度字体的大小
+    plt.xticks(range(0,len(sampleNames),1),labels = [sampleNames[0],sampleNames[1]],fontsize=6)
     plt.yticks(fontsize=6)
     Names = [str(i) for i in sampleNames]
     Names.append("BoxPlot_allSites.pdf")
@@ -211,13 +211,13 @@ def Box_intersect(flist):
     current_palette = sns.color_palette("hls",len(sampleNames))
     sns.boxplot(data = RatioValues, palette = current_palette, width = 0.2, fliersize= 0.6, linewidth= 0.8, showfliers=False)
     sns.despine(offset=0.3)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(0.8);#设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(0.8);#设置左边坐标轴的粗细
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(0.8);
+    ax.spines['left'].set_linewidth(0.8);
     # ax.set_ylim([-0.05, 1]) 
-    ax.set_xlabel("Samples", fontsize=7) #设置坐标标签字体大小
+    ax.set_xlabel("Samples", fontsize=7)
     ax.set_ylabel("Ratio", fontsize=7)
-    plt.xticks(range(0,len(sampleNames),1),labels = sampleNames,fontsize=6) #设置坐标刻度字体的大小
+    plt.xticks(range(0,len(sampleNames),1),labels = sampleNames,fontsize=6)
     plt.yticks(fontsize=6)
     Names = [str(i) for i in sampleNames]
     Names.append("BoxPlot_IntersectSites.pdf")
@@ -248,17 +248,17 @@ def EachMotifRatio_Box(flist):
         for index, value in enumerate(valueList):
             valueList2.append(list(map(float, value)))
         my_dpi=150 
-        plt.figure(figsize=(150*len(valueList)/my_dpi, 450/my_dpi), dpi=my_dpi) #控制图尺寸的同时，使图高分辨率（高清）显示
+        plt.figure(figsize=(150*len(valueList)/my_dpi, 450/my_dpi), dpi=my_dpi)
         current_palette = sns.color_palette("hls",len(valueList))
         sns.boxplot(data = valueList2, palette = current_palette, width = 0.2, fliersize= 0.6, linewidth= 0.8, showfliers=False)
         sns.despine(offset=0.3)
-        ax=plt.gca();#获得坐标轴的句柄
-        ax.spines['bottom'].set_linewidth(0.8);#设置底部坐标轴的粗细
-        ax.spines['left'].set_linewidth(0.8);#设置左边坐标轴的粗细
+        ax=plt.gca();
+        ax.spines['bottom'].set_linewidth(0.8);
+        ax.spines['left'].set_linewidth(0.8);
         ax.set_ylim([-0.05, 1]) 
-        ax.set_xlabel(motif, fontsize=7) #设置坐标标签字体大小
+        ax.set_xlabel(motif, fontsize=7)
         ax.set_ylabel("Ratio", fontsize=7)
-        plt.xticks(range(0,len(sampleNames),1),labels = [sampleNames[0],sampleNames[1]],fontsize=6) #设置坐标刻度字体的大小
+        plt.xticks(range(0,len(sampleNames),1),labels = [sampleNames[0],sampleNames[1]],fontsize=6)
         plt.yticks(fontsize=6)
         Names = [str(i) for i in sampleNames]
         Names.extend([motif, "BoxPlot.pdf"])
@@ -272,20 +272,20 @@ def Density_all(flist): #plot all ratio of each sample although the numer of rat
     """
     dfs, SampleNames, valueList, RatioValues= decodeInputlist(flist)
     SampleNametup = tuple(SampleNames)
-    current_palette = sns.color_palette("hls",len(SampleNames)) #就是这里穿参数，一般使用“hls”,l是亮度，s是饱和度,12表示12种颜色
-    sns.set(style="white", palette = current_palette, color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
+    current_palette = sns.color_palette("hls",len(SampleNames))
+    sns.set(style="white", palette = current_palette, color_codes=True)
+    sns.set_style("ticks")
     for index, val in enumerate(RatioValues):
         value = (list(map(float, list(val))))
         sns.distplot(value, label=SampleNametup[index], norm_hist=True, bins=20, axlabel = "Ratio")
     # plt.legend()
     sns.despine(offset=0.3)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(0.8);#设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(0.8);#设置左边坐标轴的粗细 
-    ax.set_xlabel(fontsize=7) #设置坐标标签字体大小
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(0.8);
+    ax.spines['left'].set_linewidth(0.8);
+    ax.set_xlabel(fontsize=7) 
     ax.set_ylabel(fontsize=7)
-    plt.xticks(fontsize=6) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=6) 
     plt.yticks(fontsize=6)
     Names = [str(i) for i in SampleNames]
     Names.append("DensityPlot_allSites.pdf")
@@ -306,12 +306,12 @@ def Density_intersect(flist): #plot the ratio of intersect sites among all sampl
         value = (list(map(float, list(df[val].values.tolist()))))
         sns.distplot(value, label=sampleNames[index], norm_hist=True, bins=20, axlabel = "Ratio")
     sns.despine(offset=0.3)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(0.8);#设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(0.8);#设置左边坐标轴的粗细 
-    ax.set_xlabel(fontsize=7) #设置坐标标签字体大小
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(0.8);
+    ax.spines['left'].set_linewidth(0.8);
+    ax.set_xlabel(fontsize=7)
     ax.set_ylabel(fontsize=7)
-    plt.xticks(fontsize=6) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=6)
     plt.yticks(fontsize=6)
     Names = [str(i) for i in sampleNames]
     Names.append("DensityPlot_intersectSites.pdf")
@@ -341,9 +341,9 @@ def Jointplot(flist):
         df[ele] = df[ele].astype("float64") #Notes: Values of ratio are not string but float64, so they must be covert to float64.
     cor = get_corr(df, "spearman") 
     cor = "%.3f"%(cor.iat[1,0]) #extract the value at second row and first column
-    sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
-    # sns.set(font_scale = 1.5)#坐标轴刻度字体放大倍数
+    sns.set(style="white", palette = "muted", color_codes=True)
+    sns.set_style("ticks")
+    # sns.set(font_scale = 1.5)
     p = sns.jointplot(data = df, x = RatioLabs[0], y = RatioLabs[1], kind="reg", marker=".", marginal_kws=dict(bins=25, fill=True),marginal_ticks=True, truncate=False, xlim=(0, 1), ylim=(0, 1), palette=current_palette, height=6)
     ####
     #add y=x line
@@ -358,7 +358,7 @@ def Jointplot(flist):
     p.set_axis_labels(sampleNames[0], sampleNames[1], fontsize=16)
     ax=plt.gca()
     ax.text(0,0.9, cor, fontsize=11,horizontalalignment='center')
-    plt.xticks(fontsize=11) #设置右边柱状图纵坐标刻度字体的大小
+    plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
     ####
     #add spearman and pvalue
@@ -398,14 +398,14 @@ def Box_motif(flist):
     for ele in MotifLabs:
         df[ele] = df[ele].astype("object") #Notes: covert to string.
     df = data_group(df, MotifLabs[0], RatioLabs, sampleNames) #re-construct the df
-    sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
+    sns.set(style="white", palette = "muted", color_codes=True)
+    sns.set_style("ticks")
     p = sns.boxplot(data = df, x = MotifLabs[0], y = "ratio", hue = "sample", palette="Set2")
     p.set_xticklabels(p.get_xticklabels(),rotation=30) 
     ax=plt.gca()
-    plt.xticks(fontsize=11) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
-    ax.set_xlabel("Motifs",fontsize=15) #设置坐标标签字体大小
+    ax.set_xlabel("Motifs",fontsize=15)
     ax.set_ylabel("Ratio",fontsize=15)
     Names = [str(i) for i in sampleNames]
     Names.append("boxPlot_intersectMotifRatio.pdf")
@@ -430,17 +430,17 @@ def Catplot(flist):
     for ele in MotifLabs:
         df[ele] = df[ele].astype("object") #Notes: covert to string.
     df = data_group(df, MotifLabs[0], RatioLabs, sampleNames) #re-construct the df
-    sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
+    sns.set(style="white", palette = "muted", color_codes=True)
+    sns.set_style("ticks")
     p = sns.catplot(data = df, x = MotifLabs[0], y = "ratio", hue = "sample", kind="swarm", palette="Set2") #multiple samples
     # p = sns.catplot(data = df, x = MotifLabs[0], y = "ratio", hue = "sample", kind="swarm", palette=['seagreen','peru']) #two sample for change colors
     # p = sns.catplot(data = df, x = MotifLabs[0], y = "ratio", hue = "sample", kind="swarm", palette=['peru']) #single sample
-    # p.set_axis_labels(sampleNames[0], "Ratio", fontsize=16) ##设置坐标轴标签及字体大小
+    # p.set_axis_labels(sampleNames[0], "Ratio", fontsize=16)
     p.set_xticklabels(rotation=30) 
     ax=plt.gca()
-    plt.xticks(fontsize=11) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
-    ax.set_xlabel("Motifs",fontsize=15) #设置坐标标签字体大小
+    ax.set_xlabel("Motifs",fontsize=15)
     ax.set_ylabel("Ratio",fontsize=15)
     plt.axhline(y=0.1,c='b',ls='--',lw=1)
     # plt.axvline(x=0.1,c='red',ls='--',lw=0.5)
@@ -467,14 +467,14 @@ def vioplot(flist):
     for ele in MotifLabs:
         df[ele] = df[ele].astype("object") #Notes: covert to string.
     df = data_group(df, MotifLabs[0], RatioLabs, sampleNames) #re-construct the df
-    sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
+    sns.set(style="white", palette = "muted", color_codes=True)
+    sns.set_style("ticks")
     p = sns.violinplot(data = df, x = "sample", y = "ratio", hue = "sample")
     p.set_xticklabels(p.get_xticklabels(),rotation=30) 
     ax=plt.gca()
-    plt.xticks(fontsize=11) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
-    ax.set_xlabel("Motifs",fontsize=15) #设置坐标标签字体大小
+    ax.set_xlabel("Motifs",fontsize=15)
     ax.set_ylabel("Ratio",fontsize=15)
     Names = [str(i) for i in sampleNames]
     Names.append("violinPlot_intersectRatio.pdf")
@@ -498,17 +498,17 @@ def vioplot_Motif(flist):
     for ele in MotifLabs:
         df[ele] = df[ele].astype("object") #Notes: covert to string.
     df = data_group(df, MotifLabs[0], RatioLabs, sampleNames) #re-construct the df
-    sns.set(style="white", palette = "muted", color_codes=True) #背景白色，没有标线线,使用颜色就是传递参数给palette
-    sns.set_style("ticks") #xy轴都有非常短的小刻度
+    sns.set(style="white", palette = "muted", color_codes=True)
+    sns.set_style("ticks")
     if len(sampleNames ) != 2:
         sys.stderr.write("violinplot_motif/beaplot only need two samples, suach as WT and KO.\n")
         sys.exit()
     p = sns.violinplot(data = df, x = df.columns[0], y = "ratio", hue = "sample", split=True)
     p.set_xticklabels(p.get_xticklabels(),rotation=30) 
     ax=plt.gca()
-    plt.xticks(fontsize=11) #设置坐标刻度字体的大小
+    plt.xticks(fontsize=11)
     plt.yticks(fontsize=11)
-    ax.set_xlabel("Motifs",fontsize=15) #设置坐标标签字体大小
+    ax.set_xlabel("Motifs",fontsize=15)
     ax.set_ylabel("Ratio",fontsize=15)
     Names = [str(i) for i in sampleNames]
     Names.append("violinPlot_intersectMotifRatio.pdf")
