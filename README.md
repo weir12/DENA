@@ -194,7 +194,7 @@ In this step,you need Provide the following parameters:
 python LSTM_predict.py -i ${path_features} -m ${path_models} -o ${path_output} -p ${prefix_outfile} -d 
 ```
 
-- You will get result **${prefix_outfile}**.tsv in **${path_output}** like this
+- You will get result **${prefix_outfile}**.tsv in **${path_output}** like this:
 ```
 AT1G01010.1     30      AAACA   0       3       0.0
 AT1G01010.1     212     AAACA   0       5       0.0
@@ -208,7 +208,7 @@ AT1G01030.1     876     AAACA   1       11      0.09090909090909091
 AT1G01030.1     1233    AAACA   0       11      0.0
 ```
 
-- if "-d" was added,You will get result **${prefix_outfile}_details**.tsv in **${path_output}** like this
+- if "-d" was added, you will get result **${prefix_outfile}_details**.tsv in **${path_output}** like this:
 ```
 AT1G01010.1	30
 b129005a-01e7-49f8-bb50-aadf0d57f079	0.235
