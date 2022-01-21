@@ -176,9 +176,9 @@ e944b3ff-156c-409f-95f3-996dfa3d3fd3    26.0,30.0,28.0,25.0,31.0,158.0,6.0,47.0,
 ### 4.Predict(v3.0)
 Tips :If the input features  **NOT changed**  here is **NO** need to repeat run step 2
 #### New version function
-add "-d" in cmd for output m6a probability for each read at each site
- Added support for deep learning
-**Caution** :Using deep learning model will occupy a lot of computing resources and time costing without GPU
+1. add "-d" in cmd for output m6a probability for each read at each site.
+2. Added support for deep learning.
+  _**Caution** :Using deep learning model will occupy a lot of computing resources and time costing without GPU_
 
 #### Parameters
 In this step,you need Provide the following parameters:
