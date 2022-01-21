@@ -178,7 +178,7 @@ Tips :If the input features  **NOT changed**  here is **NO** need to repeat run 
 #### New version function
 1. add "-d" in cmd for output m6a probability for each read at each site.
 2. Added support for deep learning.
-  _**Caution** :Using deep learning model will occupy a lot of computing resources and time costing without GPU_
+_**Caution** :Using deep learning model will occupy a lot of computing resources and time costing without GPU_
 
 #### Parameters
 In this step,you need Provide the following parameters:
