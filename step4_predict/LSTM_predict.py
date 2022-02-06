@@ -107,11 +107,11 @@ def main():
 					m6a_num=sum(predicted==1).item()
 			f3.write("\t".join(site.split("_")+[str(x) for x in [m6a_num,predict_label.shape[0],m6a_num/predict_label.shape[0]]]))
 			f3.write("\n")
-			if f4:
+			if args.d:
 				f4.write("\t".join(site.split("_"))+"\n")
 				pd.DataFrame([X2[site],predict_prob]).T.to_csv(f4,sep="\t",mode="a",header=0,index=0)
 	f3.close()
-	if f4:
+	if args.d:
 		f4.close()
 	os.remove(tmp_fn)
 if __name__ == '__main__':
