@@ -162,7 +162,7 @@ Install the C ++ libraries and Python wrappers to enable this functionality
 ```
 
 ```bash
-python3 LSTM_extract.py --processes ${nmuber} predict --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 2 2
+python3 LSTM_extract.py --processes ${number} predict --fast5 ${fast5_fn}  --corr_grp ${RawGenomeCorrected_000} --bam ${bam_fn}  --sites ${candidate_predict_pos.txt} --label ${any meaningful string} --windows 2 2
 ```
 -${RawGenomeCorrected_000}: The path of `corr_grp` generated in step 2.2. Please confirm to set the same `corr_grp` as step 2.2.  
 -${number}: The Number of threads, default: 25.
