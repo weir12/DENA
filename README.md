@@ -95,9 +95,9 @@ This step is to obtain the fastq sequences from fast5 files by base-calling usin
 ${SoftPath}/guppy_basecaller -i ${single_read_fast5_folder} -s ${outfile} --flowcell FLO-MIN106 --kit SQK-RNA001 --cpu_threads_per_caller {thread} --qscore_filtering --fast5_out --records_per_fastq 0 --recursive
 cat ${outfile}/pass/*.fastq > basecalls.fq
 ```
--${SoftPath}: the path of guppy software   
--${single_read_fast5_folder}: the path of single fast5 files that need to base-call.  
--${outfile}: the path of output folder  
+- ${SoftPath}: the path of guppy software   
+- ${single_read_fast5_folder}: the path of single fast5 files that need to base-call.  
+- ${outfile}: the path of output folder  
 *Note: Please check the version of `flowcell` and `kit` of the Library Building used in the experiments,and set them correctly.  
 
 #### 2.2 tombo re-sqguiggle
@@ -115,8 +115,8 @@ For detailed help, please see [minimap2](https://github.com/lh3/minimap2) [samto
 minimap2 -ax map-ont -L --secondary=no ${transcriptome} ${basecalls.fq} | samtools view -bh -F 2324 | samtools sort -O bam > basecalls.bam
 samtools index basecalls.bam
 ```
--${transcriptome}: the fasta of transcriptome reference  
--${basecalls.fq}: the fastq of base-calling from fast5 files in step 2.1  
+- ${transcriptome}: the fasta of transcriptome reference  
+- ${basecalls.fq}: the fastq of base-calling from fast5 files in step 2.1  
 
 ### 3.extract features
 
