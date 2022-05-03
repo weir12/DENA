@@ -212,10 +212,11 @@ AT1G01030.1     1233    AAACA   0       11      0.0
 
 - if "-d" was added, you will get result **${prefix_outfile}_details**.tsv in **${path_output}** like this:
 ```
-AT1G01010.1	30
+AT1G01010.1	30   (# Description: AT1G01010.1 was transcript ID; 30 is the coordinate of candidate "RR**A**CH" site on trancript AT1G01010.1)
 b129005a-01e7-49f8-bb50-aadf0d57f079	0.235
 85a565d6-08c1-4819-a12a-2beacbf63319	0.447
 a5fafedc-1539-4cb8-ad6d-72c8699220cd	0.498
+(# Description: The first column was the read ID aligned to AT1G01010.1; Second column was the m6A-modified probability of this read at the candidate coordinate on AT1G01010.1)
 ```
 
 ### TroubleShoot
