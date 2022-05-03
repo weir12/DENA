@@ -208,6 +208,12 @@ AT1G01030.1     838     AAACA   1       11      0.09090909090909091
 AT1G01030.1     876     AAACA   1       11      0.09090909090909091
 AT1G01030.1     1233    AAACA   0       11      0.0
 ```
+<div align=center>
+<img src="https://user-images.githubusercontent.com/37523816/166450780-7c8be84d-5e78-4503-9bd6-aeb8ff1463c8.png"/>
+</div>
+
+<div align=center>Formula of m6a ratio</div>
+
 - **Note**：See the reply for the description of each column: https://github.com/weir12/DENA/issues/12
 
 - if "-d" was added, you will get result **${prefix_outfile}_details**.tsv in **${path_output}** like this:
