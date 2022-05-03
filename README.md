@@ -208,6 +208,7 @@ AT1G01030.1     838     AAACA   1       11      0.09090909090909091
 AT1G01030.1     876     AAACA   1       11      0.09090909090909091
 AT1G01030.1     1233    AAACA   0       11      0.0
 ```
+- **Note**：See the reply for the description of each column: https://github.com/weir12/DENA/issues/12
 
 - if "-d" was added, you will get result **${prefix_outfile}_details**.tsv in **${path_output}** like this:
 ```
