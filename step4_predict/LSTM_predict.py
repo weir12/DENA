@@ -22,6 +22,7 @@ import time
 from pathlib import Path
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 #define const
 def get_version():
     return 'DENA_3.3'
