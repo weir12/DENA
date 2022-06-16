@@ -45,7 +45,7 @@ def extract_align_features(reads,pos,win_len=10):
 		try:
 			quality=read.query_qualities #base-quality of read
 			mapping_relation=pd.DataFrame(read.get_aligned_pairs(matches_only=False),dtype=pd.Int64Dtype()) #mapping_relation between read(query) and reference 
-			m6a_pos_inread=mapping_relation[(mapping_relation[1]==int(pos))].index.tolist()[0]
+			m6a_pos_inread=mapping_relation[(mapping_relation[1]==int(pos)-1)].index.tolist()[0]
 			selected_base=mapping_relation.iloc[m6a_pos_inread-win_len:m6a_pos_inread+win_len+1,0].tolist()
 			result.append([quality[x] if isinstance(x,np.int64) else 0 for x in selected_base])
 			uuids.append(read.query_name)
