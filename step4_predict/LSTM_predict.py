@@ -104,7 +104,7 @@ def main():
 					RNN=torch.tensor(np.array(body).reshape(len(X2[site]),5,-1)).permute(0,2,1).to(torch.float32)
 					predict_label = model(RNN)
 					_, predicted = torch.max(predict_label, 1)
-					predict_prob=predict_label[:,1].numpy()
+					predict_prob=F.softmax(predict_label,dim=1)[:,1].numpy()
 					m6a_num=sum(predicted==1).item()
 			f3.write("\t".join(site.split("_")+[str(x) for x in [m6a_num,predict_label.shape[0],m6a_num/predict_label.shape[0]]]))
 			f3.write("\n")
