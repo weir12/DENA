@@ -42,6 +42,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Download well-trained LSTM-model files
 The links of DENA model files are:
+
 (1) Baidu network disk (百度网盘): https://pan.baidu.com/s/166FmGUziN91kCLknern6Rw?pwd=ocm8;
 (2) Google Drive: https://drive.google.com/file/d/10GZaENvetOZ0ClSsHxDhSal0VXHlmK26/view?usp=sharing.
 
