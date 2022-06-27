@@ -41,7 +41,10 @@ Deep learning model used to detect RNA m6a with read level based on the Nanopore
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ## Download well-trained LSTM-model files
-This link of Baidu network disk (百度网盘) includes the full DENA model files (link (百度网盘链接)：**https://pan.baidu.com/s/166FmGUziN91kCLknern6Rw?pwd=ocm8**). **Please download the updated model file through the above link, and replace the old model file, and then re-perform RNA m6A modification prediction using the code of step4 (Predict)**. Thanks!
+The links of DENA model files are:
+(1) Baidu network disk (百度网盘): https://pan.baidu.com/s/166FmGUziN91kCLknern6Rw?pwd=ocm8;
+(2) Google Drive: https://drive.google.com/file/d/10GZaENvetOZ0ClSsHxDhSal0VXHlmK26/view?usp=sharing.
+**Please download the updated DENA model files through the above links, and replace the old model files, and then re-perform RNA m6A modification prediction using the code of step4 (Predict)**. Thanks!
 
 ### 0.Prerequisites
 
