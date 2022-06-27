@@ -44,6 +44,7 @@ These instructions will get you a copy of the project up and running on your loc
 The links of DENA model files are:
 (1) Baidu network disk (百度网盘): https://pan.baidu.com/s/166FmGUziN91kCLknern6Rw?pwd=ocm8;
 (2) Google Drive: https://drive.google.com/file/d/10GZaENvetOZ0ClSsHxDhSal0VXHlmK26/view?usp=sharing.
+
 **Please download the updated DENA model files through the above links, and replace the old model files, and then re-perform RNA m6A modification prediction using the code of step4 (Predict)**. Thanks!
 
 ### 0.Prerequisites
