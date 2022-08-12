@@ -76,7 +76,7 @@ def main():
 		pattern="".join(pattern)
 		cmd=["awk","'/%s/{flag=1;print;next}/^>/{flag=0}flag'"%pattern,*inputs,">",tmp_fn]
 		subprocess.check_call(" ".join(cmd),shell=True)
-		with open(difflib.get_close_matches(pattern,models,1,1e-10)[0],'rb') as f1:
+		with open(os.path.join(path, pattern + '/model_best.pth'), 'rb') as f1:
 			if models[0].split(".")[-1]=="dat":
 				model = pickle.loads(f1.read())
 			else:
