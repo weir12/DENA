@@ -47,7 +47,7 @@ The links of DENA model files are:
 
 (2) Google Drive: https://drive.google.com/file/d/10GZaENvetOZ0ClSsHxDhSal0VXHlmK26/view?usp=sharing.
 
-**Please download the updated DENA model files through the above links, and replace the old model files, and then re-perform RNA m6A modification prediction using the code of step4 (Predict)**. Thanks!
+**Please clone DENA again, and download the updated DENA model files through the above links, and replace the old model files, and then re-perform RNA m6A modification prediction using the code of step4 (Predict)**. Thanks!
 
 ### 0.Prerequisites
 
