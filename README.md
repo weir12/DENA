@@ -63,7 +63,7 @@ Here are What things you need to install(Please confirm one by one):
 
 **Note:** 
    
-   You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381. 
+   You can get source code of DENA from zenodo with the link: https://zenodoorg/record/5603381 (Discard). 
 
    And you can also learn more by reading our research entitled "**DENA: training an authentic neural network model using Nanopore sequencing data of Arabidopsis transcripts for detection and quantification of N6-methyladenosine on RNA**" .
 
